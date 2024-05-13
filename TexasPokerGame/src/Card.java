@@ -1,4 +1,4 @@
 public class Card {
-	byte value, altValue;
-	char rank, suit;
+	Poker.Suit s;
+	Poker.Card n;
 }
