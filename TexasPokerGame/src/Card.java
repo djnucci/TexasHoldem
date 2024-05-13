@@ -1,4 +1,13 @@
 public class Card {
-	Poker.Suit s;
-	Poker.Card n;
+	private Poker.Suit s;
+	private Poker.Card n;
+
+	public Card() {
+		s = Poker.Suit.HEARTS;
+		n = Poker.Card.TWO;
+	}
+
+	public String toString() {
+		return n + " of " + s;
+	}
 }
