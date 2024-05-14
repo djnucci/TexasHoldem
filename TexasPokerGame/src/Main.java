@@ -1,9 +1,7 @@
 public class Main {
     public static void main(String[] args) throws Exception {
-        Deck mainDeck = new Deck(false);
-        System.out.println(mainDeck);
+        Deck mainDeck = new Deck(true);
+        System.out.println(mainDeck + ":" + mainDeck.size());
 
-        System.out.println();
-        System.out.println(mainDeck.dealCard() + ", " + mainDeck.size());
     }
 }
