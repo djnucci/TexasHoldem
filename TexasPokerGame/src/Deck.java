@@ -24,7 +24,9 @@ public class Deck {
 		}
 
 		if (isShuffled) {
-			shuffle();
+			for (int i = 0; i < 70; i++) {
+				shuffle();
+			}
 		}
 	}
 
@@ -32,7 +34,7 @@ public class Deck {
 	 * Shuffle the cards using a piles method and randomly selecting which pile to take from and how many piles there are
 	 */
 	private void shuffle() {
-		int numPiles = (int) (Math.random() * 3) + 2;
+		int numPiles = (int) (Math.random() * 7) + 4;
 		ArrayList<Stack<Card>> piles = new ArrayList<Stack<Card>>();
 		
 		for (int i = 0; i < numPiles; i++) {
@@ -42,6 +44,15 @@ public class Deck {
 		// algo for creating a random number of piles populated by the orginal deck
 		for (int i = 0; !deck.isEmpty(); i++) {
 			piles.get(i % numPiles).push(deck.pop());
+		}
+
+		// invert 50% of the piles
+		for (int i = 0; i < numPiles; i++) {
+			boolean fiftyFifty = Math.random() < 0.5;
+
+			if (fiftyFifty) {
+				piles.add(invertPile(piles.remove(i)));
+			}
 		}
 
 		// add back to main deck randomly
@@ -74,6 +85,16 @@ public class Deck {
 				}
 			} while (piles.get(randomPile).isEmpty());
 		}
+	}
+
+	private Stack<Card> invertPile(Stack<Card> pile) {
+		Stack<Card> tempStack = new Stack<Card>();
+
+		while (!pile.isEmpty()) {
+			tempStack.push(pile.pop());
+		}
+		
+		return tempStack;
 	}
 
 	private Card dealCard() {
