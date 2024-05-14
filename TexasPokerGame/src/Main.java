@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) throws Exception {
-        System.out.println(new Card());
-        System.out.println(new Community());
+        Deck mainDeck = new Deck();
+        System.out.println(mainDeck);
     }
 }
