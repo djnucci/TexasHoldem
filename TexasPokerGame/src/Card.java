@@ -2,7 +2,10 @@ public class Card {
 	private Poker.Suit s;
 	private Poker.Card n;
 
-	public Card(){
+	/**
+	 * Default constructor makes a null card
+	 */
+	public Card() {
 		s = Poker.Suit.NULL;
 		n = Poker.Card.NULL;
 	}
@@ -55,11 +58,10 @@ public class Card {
 			case 12: // ace
 				this.n = Poker.Card.ACE;
 				return;
-			default:
+			default: // invalid case
 				this.n = Poker.Card.NULL;
 		}
 	}
-
 
 	public String toString() {
 		return n + " of " + s;

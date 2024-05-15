@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Stack;
 
 public class Community {
 	private Card[] communityCards;
@@ -20,6 +21,20 @@ public class Community {
 		}
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder retString = new StringBuilder();
+
+		for (Card c: communityCards) {
+			if (c != null){
+				retString.append(c);
+				retString.append(", ");
+			}	
+		}
+
+		return retString.toString().substring(0, retString.length()-2);
+	}
+
 	public Card[] getCards(){
 		return communityCards;
 	}
@@ -36,15 +51,22 @@ public class Community {
 		return communityCards[4];
 	}
 
-	public void setFlop(Card[] cards){
+	/**
+	 * Sets the flop community cards
+	 * @param Card[] cards - the card array to add (must be 3 in length)
+	 * @return true if successful
+	 */
+	public boolean setFlop(Card[] cards){
 		if (cards.length != 3) {
 			System.err.println("Not a valid card array length, ensure your flop only contains 3 cards");
-			return;
+			return false;
 		}
 
 		communityCards[0] = cards[0];
 		communityCards[1] = cards[1];
 		communityCards[2] = cards[2];
+
+		return true;
 	}
 
 	public void setTurn(Card c){
@@ -53,5 +75,10 @@ public class Community {
 
 	public void setRiver(Card c){
 		communityCards[4] = c;
+	}
+
+	public boolean resetCommunity() {
+		communityCards = new Card[5];
+		return true;
 	}
 }

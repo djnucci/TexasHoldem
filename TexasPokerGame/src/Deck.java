@@ -2,31 +2,20 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class Deck {
-	Stack<Card> deck;
+	private Stack<Card> deck;
 
 	public Deck(boolean isShuffled) {
 		deck = new Stack<Card>();
 
 		for (int i = 0; i <= 12; i++) {
 			deck.push(new Card(i, Poker.Suit.HEARTS));
-		}
-
-		for (int i = 0; i <= 12; i++) {
 			deck.push(new Card(i, Poker.Suit.DIAMONDS));
-		}
-
-		for (int i = 0; i <= 12; i++) {
 			deck.push(new Card(i, Poker.Suit.CLUBS));
-		}
-
-		for (int i = 0; i <= 12; i++) {
 			deck.push(new Card(i, Poker.Suit.SPADES));
 		}
 
 		if (isShuffled) {
-			for (int i = 0; i < 70; i++) {
-				shuffle();
-			}
+			shuffle();
 		}
 	}
 
@@ -34,56 +23,59 @@ public class Deck {
 	 * Shuffle the cards using a piles method and randomly selecting which pile to take from and how many piles there are
 	 */
 	private void shuffle() {
-		int numPiles = (int) (Math.random() * 7) + 4;
-		ArrayList<Stack<Card>> piles = new ArrayList<Stack<Card>>();
-		
-		for (int i = 0; i < numPiles; i++) {
-			piles.add(new Stack<Card>());
-		}
-
-		// algo for creating a random number of piles populated by the orginal deck
-		for (int i = 0; !deck.isEmpty(); i++) {
-			piles.get(i % numPiles).push(deck.pop());
-		}
-
-		// invert 50% of the piles
-		for (int i = 0; i < numPiles; i++) {
-			boolean fiftyFifty = Math.random() < 0.5;
-
-			if (fiftyFifty) {
-				piles.add(invertPile(piles.remove(i)));
+		int randomShuffles = (int) (Math.random() * 5) + 15;
+		for (int i = 0; i < randomShuffles; i++) {
+			int numPiles = (int) (Math.random() * 7) + 4;
+			ArrayList<Stack<Card>> piles = new ArrayList<Stack<Card>>();
+			
+			for (int k = 0; k < numPiles; k++) {
+				piles.add(new Stack<Card>());
 			}
-		}
 
-		// add back to main deck randomly
-		pileLoop:
-		while (true) {
-			// if there are any cards present in an pile, continue
-			// if no cards track and if all are empty break out of the whole thing
-			boolean cardsPresent = true;
-			for (int i = 0; i < numPiles; i++) {
-				if (!piles.get(i).isEmpty()) {
-					cardsPresent = true;
-					break;
-				}
-				else {
-					cardsPresent = false;
+			// algo for creating a random number of piles populated by the orginal deck
+			for (int k = 0; !deck.isEmpty(); k++) {
+				piles.get(k % numPiles).push(deck.pop());
+			}
+
+			// invert 50% of the piles
+			for (int k = 0; k < numPiles; k++) {
+				boolean fiftyFifty = Math.random() < 0.5;
+
+				if (fiftyFifty) {
+					piles.add(invertPile(piles.remove(k)));
 				}
 			}
 
-			if (!cardsPresent) {
-				break pileLoop;
-			}
-
-			// randomly choose a pile that has a value and stack into original
-			int randomPile;
-			do {
-				randomPile = (int) (Math.random() * numPiles);
-				if (!piles.get(randomPile).isEmpty()) {
-					deck.push(piles.get(randomPile).pop());
-					break;
+			// add back to main deck randomly
+			pileLoop:
+			while (true) {
+				// if there are any cards present in an pile, continue
+				// if no cards track and if all are empty break out of the whole thing
+				boolean cardsPresent = true;
+				for (int k = 0; k < numPiles; k++) {
+					if (!piles.get(k).isEmpty()) {
+						cardsPresent = true;
+						break;
+					}
+					else {
+						cardsPresent = false;
+					}
 				}
-			} while (piles.get(randomPile).isEmpty());
+
+				if (!cardsPresent) {
+					break pileLoop;
+				}
+
+				// randomly choose a pile that has a value and stack into original
+				int randomPile;
+				do {
+					randomPile = (int) (Math.random() * numPiles);
+					if (!piles.get(randomPile).isEmpty()) {
+						deck.push(piles.get(randomPile).pop());
+						break;
+					}
+				} while (piles.get(randomPile).isEmpty());
+			}
 		}
 	}
 
@@ -97,7 +89,7 @@ public class Deck {
 		return tempStack;
 	}
 
-	private Card dealCard() {
+	public Card dealCard() {
 		return deck.pop();
 	}
 
@@ -124,6 +116,7 @@ public class Deck {
 
 	@Override
 	public String toString() {
+		@SuppressWarnings("unchecked")
 		Stack<Card> deckCopy = (Stack<Card>)deck.clone();
 		StringBuilder retString = new StringBuilder();
 
@@ -132,7 +125,7 @@ public class Deck {
 			retString.append(", ");
 		}
 
-		return retString.toString();
+		return retString.toString().substring(0, retString.length()-2) + ": " + size();
 	}
 
 }
