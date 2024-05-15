@@ -51,6 +51,39 @@ public class CardPool {
 		return false;	
 	}
 
+	public boolean cardPoolContainsValue(Poker.CardValue cv) {
+		for (Card card: cards) {
+			if (card.getCardValue().equals(cv)) {
+				return true;
+			}
+		}
+
+		return false;	
+	}
+
+	public boolean cardPoolContainsSuit(Poker.Suit s) {
+		for (Card card: cards) {
+			if (card.getSuit().equals(s)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public int numCardPoolContainsSuit (Poker.Suit s) {
+		int numMatches = 0;
+		for (Card card: cards) {
+			if (card.getSuit().equals(s)) {
+				numMatches++;
+			}
+		}
+
+		return numMatches;
+	}
+
+	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (!(obj instanceof CardPool) || getCards().length != ((CardPool)obj).getCards().length) {
