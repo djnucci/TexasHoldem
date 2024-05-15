@@ -80,7 +80,11 @@ public class Poker {
 	public static Hand determineHighestHand(Player p, Community c) {
 		//TODO return the highest hand combo when taking in the playerhand and community cards
 
+		
+
 		return Hand.STRAIGHT_FLUSH;
 	} 
+
+	
 
 }

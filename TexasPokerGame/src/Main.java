@@ -24,7 +24,7 @@ public class Main {
         System.out.println(commCards);
 
         for (Player p: players) {
-            System.out.println("Player " + p.getNum() + ": " + p + "\t\t"+ Poker.determineHighestHand(p, commCards));
+            System.out.println("Player " + p.getNum() + ": " + p + "     \t"+ Poker.determineHighestHand(p, commCards));
         }
 
     }

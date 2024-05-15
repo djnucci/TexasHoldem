@@ -1,27 +1,14 @@
-public class Player {
+public class Player extends CardPool{
 	private int playerNum;
-	private Card[] hand;
 
 	public Player(int playerNum) {
-		hand = new Card[2];
+		super(2); //2 cards in a hand
 		this.playerNum = playerNum;
 	}
 
 	public Player(int playerNum, Card[] startHand) {
-		hand = startHand;
+		super(startHand);
 		this.playerNum = playerNum;
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder retString = new StringBuilder();
-
-		for (Card c: hand) {
-			retString.append(c);
-			retString.append(", \t");
-		}
-
-		return retString.toString().substring(0, retString.length()-3);
 	}
 
 	public int getNum() {
@@ -29,19 +16,19 @@ public class Player {
 	}
 
 	public boolean addCard(Card c) {
-		if (hand[0] != null) {
-			if (hand[1] != null) {
+		if (this.getCards()[0] != null) {
+			if (this.getCards()[1] != null) {
 				return false;
 			}
-			hand[1] = c;
+			this.getCards()[1] = c;
 			return true;
 		}
-		hand[0] = c;
+		this.getCards()[0] = c;
 		return true;
 	}
 
 	public boolean resetHand() {
-		hand[0] = hand[1] = null;
+		this.getCards()[0] = this.getCards()[1] = null;
 		return true;
 	}
 }
