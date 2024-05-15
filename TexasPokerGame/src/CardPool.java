@@ -13,6 +13,17 @@ public class CardPool {
 		this.cards = cards;
 	}
 
+	public CardPool (Card[] pileOne, Card[] pileTwo) {
+		cards = new Card[pileOne.length + pileTwo.length];
+
+		for (int i = 0; i < pileOne.length; i++) {
+			setCardByIndex(i, pileOne[i]);
+		}
+		for (int i = pileOne.length; i < pileOne.length + pileTwo.length; i++) {
+			setCardByIndex(i, pileTwo[i-pileOne.length]);
+		}
+	}
+
 	public Card[] getCards() {
 		return cards;
 	}
@@ -30,8 +41,13 @@ public class CardPool {
 		return true;
 	}
 
-	//TODO create
-	public boolean cardPoolContains() {
+	public boolean cardPoolContains(Card c) {
+		for (Card card: cards) {
+			if (card.equals(c)) {
+				return true;
+			}
+		}
+
 		return false;	
 	}
 

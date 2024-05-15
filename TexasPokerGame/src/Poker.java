@@ -63,28 +63,26 @@ public class Poker {
 		FLUSH(6), FULL_HOUSE(7), FOUR_OF_A_KIND(8), STRAIGHT_FLUSH(9), ROYAL_FLUSH(10);
 
 		private final int RANK;
-		//private final Card[] HAND_CONTENTS;
 		private Hand(int rank) {
 			this.RANK = rank;
 		}
-
-		private Hand(int rank, CardValue c) {
-			this.RANK = rank;
-		}
-
 		public int getRank() {
 			return RANK;
 		}
 	}
 
 	public static Hand determineHighestHand(Player p, Community c) {
-		//TODO return the highest hand combo when taking in the playerhand and community cards
-
+		CardPool cp = new CardPool(p.getCards(), c.getCards());
 		
+		if (cp.cardPoolContains(new Card(Poker.CardValue.ACE, Poker.Suit.SPADES)) &&
+		cp.cardPoolContains(new Card(Poker.CardValue.KING, Poker.Suit.SPADES)) &&
+		cp.cardPoolContains(new Card(Poker.CardValue.QUEEN, Poker.Suit.SPADES)) &&
+		cp.cardPoolContains(new Card(Poker.CardValue.JACK, Poker.Suit.SPADES)) &&
+		cp.cardPoolContains(new Card(Poker.CardValue.TEN, Poker.Suit.SPADES))
+		) {
+			return Hand.ROYAL_FLUSH;
+		}
 
-		return Hand.STRAIGHT_FLUSH;
+		return Hand.JUNK;
 	} 
-
-	
-
 }

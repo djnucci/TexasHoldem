@@ -63,12 +63,17 @@ public class Card {
 		}
 	}
 
+	public Card(Poker.CardValue v, Poker.Suit s) {
+		this.SUIT = s;
+		this.CARD_VALUE = v;
+	}
+
 	public Poker.Suit getSuit() {
-		return SUIT;
+		return this.SUIT;
 	}
 
 	public Poker.CardValue getCardValue() {
-		return CARD_VALUE;
+		return this.CARD_VALUE;
 	}
 
 	@Override
