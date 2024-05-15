@@ -1,13 +1,13 @@
 public class Card {
 	private Poker.Suit s;
-	private Poker.Card n;
+	private Poker.CardValue n;
 
 	/**
 	 * Default constructor makes a null card
 	 */
 	public Card() {
 		s = Poker.Suit.NULL;
-		n = Poker.Card.NULL;
+		n = Poker.CardValue.NULL;
 	}
 
 	/**
@@ -20,46 +20,46 @@ public class Card {
 
 		switch (cardOrderValue) {
 			case 0: // two
-				this.n = Poker.Card.TWO;
+				this.n = Poker.CardValue.TWO;
 				return;
 			case 1: // three
-				this.n = Poker.Card.THREE;
+				this.n = Poker.CardValue.THREE;
 				return;
 			case 2: // four
-				this.n = Poker.Card.FOUR;
+				this.n = Poker.CardValue.FOUR;
 				return;
 			case 3: // five
-				this.n = Poker.Card.FIVE;
+				this.n = Poker.CardValue.FIVE;
 				return;
 			case 4: // six
-				this.n = Poker.Card.SIX;
+				this.n = Poker.CardValue.SIX;
 				return;
 			case 5: // seven
-				this.n = Poker.Card.SEVEN;
+				this.n = Poker.CardValue.SEVEN;
 				return;
 			case 6: // eight
-				this.n = Poker.Card.EIGHT;
+				this.n = Poker.CardValue.EIGHT;
 				return;
 			case 7: // nine
-				this.n = Poker.Card.NINE;
+				this.n = Poker.CardValue.NINE;
 				return;
 			case 8: // ten
-				this.n = Poker.Card.TEN;
+				this.n = Poker.CardValue.TEN;
 				return;
 			case 9: // jack
-				this.n = Poker.Card.JACK;
+				this.n = Poker.CardValue.JACK;
 				return;
 			case 10: // queen
-				this.n = Poker.Card.QUEEN;
+				this.n = Poker.CardValue.QUEEN;
 				return;
 			case 11: // king
-				this.n = Poker.Card.KING;
+				this.n = Poker.CardValue.KING;
 				return;
 			case 12: // ace
-				this.n = Poker.Card.ACE;
+				this.n = Poker.CardValue.ACE;
 				return;
 			default: // invalid case
-				this.n = Poker.Card.NULL;
+				this.n = Poker.CardValue.NULL;
 		}
 	}
 

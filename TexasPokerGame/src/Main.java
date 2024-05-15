@@ -6,10 +6,10 @@ public class Main {
 
         Scanner scan = new Scanner(System.in);
         System.out.println("Game started, how many players would like to play?");
-        Hand[] players = new Hand[scan.nextInt()];
+        Player[] players = new Player[scan.nextInt()];
 
         for (int i = 0; i < players.length; i++) {
-            players[i] = new Hand(i);
+            players[i] = new Player(i);
         }
 
         for (int i = 0; i < players.length * 2; i++){
@@ -17,21 +17,14 @@ public class Main {
         }
 
         Community commCards = new Community(mainDeck.dealFlop());
+        commCards.setTurn(mainDeck.burnAndDealOne()); // turn
 
-        System.out.println("Here are the community cards after the flop");
-        System.out.println(commCards);
-
-        commCards.setTurn(mainDeck.burnAndDealOne());
-        System.out.println("Here are the community cards after the turn");
-        System.out.println(commCards);
-
-        commCards.setRiver(mainDeck.burnAndDealOne());
+        commCards.setRiver(mainDeck.burnAndDealOne()); // river
         System.out.println("Here are the community cards after the River");
         System.out.println(commCards);
 
-        for (Hand h: players) {
-            System.out.print("Player " + h.getNum() + ": ");
-            System.out.println(h);
+        for (Player p: players) {
+            System.out.println("Player " + p.getNum() + ": " + p + "\t\t"+ Poker.determineHighestHand(p, commCards));
         }
 
     }

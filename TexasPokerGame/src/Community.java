@@ -1,5 +1,4 @@
 import java.util.Arrays;
-import java.util.Stack;
 
 public class Community {
 	private Card[] communityCards;
