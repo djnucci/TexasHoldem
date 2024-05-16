@@ -71,10 +71,9 @@ public class Poker {
 		}
 	}
 
-	public static Hand determineHighestHand(Player p, Community c) {
-		CardPool cp = new CardPool(p.getCards(), c.getCards());
-		
+	public static Hand determineHighestHand(CardPool cp) {		
 		//FIXME this is gross but it works
+		// ROYAL FLUSH
 		if ((cp.cardPoolContains(new Card(Poker.CardValue.ACE, 	Poker.Suit.SPADES)) &&
 				cp.cardPoolContains(new Card(Poker.CardValue.KING, 	Poker.Suit.SPADES)) &&
 				cp.cardPoolContains(new Card(Poker.CardValue.QUEEN, Poker.Suit.SPADES)) &&
@@ -101,14 +100,18 @@ public class Poker {
 			return Poker.Hand.ROYAL_FLUSH;
 		}
 
-		if (cp.longestValueRun() >= 5 &&
-				(cp.numCardPoolContainsSuit(Poker.Suit.SPADES) 	>= 5 || 
-				cp.numCardPoolContainsSuit(Poker.Suit.CLUBS) 		>= 5 ||
-				cp.numCardPoolContainsSuit(Poker.Suit.DIAMONDS) >= 5 ||
-				cp.numCardPoolContainsSuit(Poker.Suit.HEARTS) 	>= 5)) {
+		// STRAIGHT FLUSH
+		if (cp.longestValueAndSuitRun() >= 5) {
 			return Poker.Hand.STRAIGHT_FLUSH;
 		}
 
+		// FOUR OF A KIND
+
+
+		// FULL HOUSE
+
+
+		// FLUSH
 		if (cp.numCardPoolContainsSuit(Poker.Suit.SPADES) 	>= 5 || 
 				cp.numCardPoolContainsSuit(Poker.Suit.CLUBS) 		>= 5 ||
 				cp.numCardPoolContainsSuit(Poker.Suit.DIAMONDS) >= 5 ||
@@ -116,9 +119,19 @@ public class Poker {
 			return Poker.Hand.FLUSH;
 		}
 
+		// STRAIGHT
 		if (cp.longestValueRun() >= 5) {
 			return Poker.Hand.STRAIGHT;
 		}
+
+		// THREE OF A KIND
+
+
+		// TWO PAIR
+
+
+		// PAIR
+		
 
 		return Hand.JUNK;
 	} 

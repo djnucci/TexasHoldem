@@ -102,6 +102,25 @@ public class CardPool {
 		return Math.max(count, numConsecutive);
 	}
 
+	public int longestValueAndSuitRun() {
+		int numConsecutive = 1, count = 1;
+
+		for (int i = 1; i < this.cards.length; i++) {
+			if (!this.cards[i].equals(this.cards[i - 1])) {
+        if (this.cards[i].getCardValue().getNumValue() - this.cards[i - 1].getCardValue().getNumValue() == 1 &&
+						this.cards[i].getSuit().ranksEqualTo(this.cards[i - 1].getSuit())) {
+          count += 1;
+        }
+        else {
+          numConsecutive = Math.max(count, numConsecutive);
+          count = 1;
+        }
+      }
+		}
+
+		return Math.max(count, numConsecutive);
+	}
+
 	//FIXME because this uses the compareTo, the ace will only apply to top end straights
 	public void sortCardPool() {
 		Arrays.sort(this.cards);

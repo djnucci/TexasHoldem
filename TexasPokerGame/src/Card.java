@@ -1,4 +1,4 @@
-public class Card implements Comparable{
+public class Card implements Comparable {
 	private final Poker.Suit SUIT;
 	private final Poker.CardValue CARD_VALUE;
 
