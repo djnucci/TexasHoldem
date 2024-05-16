@@ -89,7 +89,7 @@ public class CardPool {
 
 		for (int i = 1; i < this.cards.length; i++) {
 			if (!this.cards[i].equals(this.cards[i - 1])) {
-        if (this.cards[i].getCardValue().getNumValue() - this.cards[i - 1].getCardValue().getNumValue() == 1) {
+        if (this.cards[i].getCardValue().getOrder() - this.cards[i - 1].getCardValue().getOrder() == 1) {
           count += 1;
         }
         else {
@@ -107,7 +107,7 @@ public class CardPool {
 
 		for (int i = 1; i < this.cards.length; i++) {
 			if (!this.cards[i].equals(this.cards[i - 1])) {
-        if (this.cards[i].getCardValue().getNumValue() - this.cards[i - 1].getCardValue().getNumValue() == 1 &&
+        if (this.cards[i].getCardValue().getOrder() - this.cards[i - 1].getCardValue().getOrder() == 1 &&
 						this.cards[i].getSuit().ranksEqualTo(this.cards[i - 1].getSuit())) {
           count += 1;
         }

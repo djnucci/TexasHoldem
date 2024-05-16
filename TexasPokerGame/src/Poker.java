@@ -127,13 +127,17 @@ public class Poker {
 		}
 
 		// THREE OF A KIND
-
+		if (cp.maxCountValueOccurrences() == 3) {
+			return Poker.Hand.THREE_OF_A_KIND;
+		}
 
 		// TWO PAIR
-
+		
 
 		// PAIR
-
+		if (cp.maxCountValueOccurrences() == 2) {
+			return Poker.Hand.PAIR;
+		}
 
 		return Hand.JUNK;
 	} 
