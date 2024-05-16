@@ -2,11 +2,13 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+        
         Deck mainDeck = new Deck(true);
 
         Scanner scan = new Scanner(System.in);
         System.out.println("Game started, how many players would like to play?");
-        Player[] players = new Player[scan.nextInt()];
+        // Player[] players = new Player[scan.nextInt()];
+        Player[] players = new Player[22];
 
         for (int i = 0; i < players.length; i++) {
             players[i] = new Player(i);
@@ -21,10 +23,12 @@ public class Main {
 
         commCards.setRiver(mainDeck.burnAndDealOne()); // river
         System.out.println("Here are the community cards after the River");
+        commCards.sortCardPool();
         System.out.println(commCards);
 
         for (Player p: players) {
-            System.out.println("Player " + p.getNum() + ": " + p + "   \t\t"+ Poker.determineHighestHand(p, commCards));
+            p.sortCardPool();
+            System.out.println("Player " + p.getNum() + ":\t" + p + "   \t\t"+ Poker.determineHighestHand(p, commCards));
         }
 
     }

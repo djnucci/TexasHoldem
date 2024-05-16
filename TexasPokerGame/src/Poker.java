@@ -45,7 +45,7 @@ public class Poker {
 		}
 
 
-		public int getValue() {
+		public int getNumValue() {
 			return VALUE;
 		}
 
@@ -74,13 +74,39 @@ public class Poker {
 	public static Hand determineHighestHand(Player p, Community c) {
 		CardPool cp = new CardPool(p.getCards(), c.getCards());
 		
-		if (cp.cardPoolContains(new Card(Poker.CardValue.ACE, 	Poker.Suit.SPADES)) &&
+		//FIXME this is gross but it works
+		if ((cp.cardPoolContains(new Card(Poker.CardValue.ACE, 	Poker.Suit.SPADES)) &&
 				cp.cardPoolContains(new Card(Poker.CardValue.KING, 	Poker.Suit.SPADES)) &&
 				cp.cardPoolContains(new Card(Poker.CardValue.QUEEN, Poker.Suit.SPADES)) &&
 				cp.cardPoolContains(new Card(Poker.CardValue.JACK, 	Poker.Suit.SPADES)) &&
-				cp.cardPoolContains(new Card(Poker.CardValue.TEN, 	Poker.Suit.SPADES))
-		) {
+				cp.cardPoolContains(new Card(Poker.CardValue.TEN, 	Poker.Suit.SPADES))) || 
+
+				(cp.cardPoolContains(new Card(Poker.CardValue.ACE, 	Poker.Suit.CLUBS)) &&
+				cp.cardPoolContains(new Card(Poker.CardValue.KING, 	Poker.Suit.CLUBS)) &&
+				cp.cardPoolContains(new Card(Poker.CardValue.QUEEN, Poker.Suit.CLUBS)) &&
+				cp.cardPoolContains(new Card(Poker.CardValue.JACK, 	Poker.Suit.CLUBS)) &&
+				cp.cardPoolContains(new Card(Poker.CardValue.TEN, 	Poker.Suit.CLUBS))) ||
+
+				(cp.cardPoolContains(new Card(Poker.CardValue.ACE, 	Poker.Suit.DIAMONDS)) &&
+				cp.cardPoolContains(new Card(Poker.CardValue.KING, 	Poker.Suit.DIAMONDS)) &&
+				cp.cardPoolContains(new Card(Poker.CardValue.QUEEN, Poker.Suit.DIAMONDS)) &&
+				cp.cardPoolContains(new Card(Poker.CardValue.JACK, 	Poker.Suit.DIAMONDS)) &&
+				cp.cardPoolContains(new Card(Poker.CardValue.TEN, 	Poker.Suit.DIAMONDS))) ||
+
+				(cp.cardPoolContains(new Card(Poker.CardValue.ACE, 	Poker.Suit.HEARTS)) &&
+				cp.cardPoolContains(new Card(Poker.CardValue.KING, 	Poker.Suit.HEARTS)) &&
+				cp.cardPoolContains(new Card(Poker.CardValue.QUEEN, Poker.Suit.HEARTS)) &&
+				cp.cardPoolContains(new Card(Poker.CardValue.JACK, 	Poker.Suit.HEARTS)) &&
+				cp.cardPoolContains(new Card(Poker.CardValue.TEN, 	Poker.Suit.HEARTS)))) {
 			return Poker.Hand.ROYAL_FLUSH;
+		}
+
+		if (cp.longestValueRun() >= 5 &&
+				(cp.numCardPoolContainsSuit(Poker.Suit.SPADES) 	>= 5 || 
+				cp.numCardPoolContainsSuit(Poker.Suit.CLUBS) 		>= 5 ||
+				cp.numCardPoolContainsSuit(Poker.Suit.DIAMONDS) >= 5 ||
+				cp.numCardPoolContainsSuit(Poker.Suit.HEARTS) 	>= 5)) {
+			return Poker.Hand.STRAIGHT_FLUSH;
 		}
 
 		if (cp.numCardPoolContainsSuit(Poker.Suit.SPADES) 	>= 5 || 
@@ -90,7 +116,9 @@ public class Poker {
 			return Poker.Hand.FLUSH;
 		}
 
-		
+		if (cp.longestValueRun() >= 5) {
+			return Poker.Hand.STRAIGHT;
+		}
 
 		return Hand.JUNK;
 	} 
