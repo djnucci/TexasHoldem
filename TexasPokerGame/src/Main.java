@@ -8,10 +8,10 @@ public class Main {
             new Card(Poker.CardValue.SEVEN, Poker.Suit.HEARTS),
             new Card(Poker.CardValue.EIGHT, Poker.Suit.SPADES),
             new Card(Poker.CardValue.NINE, Poker.Suit.HEARTS),
-            new Card(Poker.CardValue.TEN, Poker.Suit.HEARTS),
-            new Card(Poker.CardValue.KING, Poker.Suit.HEARTS),
-            new Card(Poker.CardValue.TWO, Poker.Suit.CLUBS),
-            new Card(Poker.CardValue.SIX, Poker.Suit.HEARTS),
+            new Card(Poker.CardValue.ACE, Poker.Suit.DIAMONDS),
+            new Card(Poker.CardValue.ACE, Poker.Suit.SPADES),
+            new Card(Poker.CardValue.ACE, Poker.Suit.CLUBS),
+            new Card(Poker.CardValue.ACE, Poker.Suit.HEARTS),
         });
 
         cp.sortCardPool();

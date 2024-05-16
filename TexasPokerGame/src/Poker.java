@@ -106,7 +106,9 @@ public class Poker {
 		}
 
 		// FOUR OF A KIND
-
+		if (cp.maxCountValueOccurrences() == 4) {
+			return Poker.Hand.FOUR_OF_A_KIND;
+		}
 
 		// FULL HOUSE
 
@@ -131,7 +133,7 @@ public class Poker {
 
 
 		// PAIR
-		
+
 
 		return Hand.JUNK;
 	} 

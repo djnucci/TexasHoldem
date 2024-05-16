@@ -121,6 +121,30 @@ public class CardPool {
 		return Math.max(count, numConsecutive);
 	}
 
+	public int countValueOccurrences(Card compareCard) {
+		int count = 0;
+		for (Card c: this.cards) {
+			if (c.getCardValue().ranksEqualTo(compareCard.getCardValue())) {
+				count++;
+			}
+		}
+
+		return count;
+	}
+
+	public int maxCountValueOccurrences() {
+		int maxCount = 0;
+
+		for (Card c: this.cards) {
+			int currCount = countValueOccurrences(c);
+			if (currCount > maxCount) {
+				maxCount = currCount;
+			} 
+		}
+
+		return maxCount;
+	}
+
 	//FIXME because this uses the compareTo, the ace will only apply to top end straights
 	public void sortCardPool() {
 		Arrays.sort(this.cards);
