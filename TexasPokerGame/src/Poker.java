@@ -18,6 +18,10 @@ public class Poker {
 		public boolean ranksEqualTo(Suit s) {
 			return this.ORDER == s.ORDER;
 		}
+
+		public int getOrder() {
+			return ORDER;
+		}
 	}
 
 	public enum CardValue {
@@ -71,33 +75,79 @@ public class Poker {
 		}
 	}
 
-	public static Hand determineHighestHand(CardPool cp) {		
-		//FIXME this is gross but it works
+	public static Poker.CardValue getCardValue(int order) {
+		switch (order) {
+			case 0: // two
+				return Poker.CardValue.TWO;
+			case 1: // three
+				return Poker.CardValue.THREE;
+			case 2: // four
+				return Poker.CardValue.FOUR;
+			case 3: // five
+				return Poker.CardValue.FIVE;
+			case 4: // six
+				return Poker.CardValue.SIX;
+			case 5: // seven
+				return Poker.CardValue.SEVEN;
+			case 6: // eight
+				return Poker.CardValue.EIGHT;
+			case 7: // nine
+				return Poker.CardValue.NINE;
+			case 8: // ten
+				return Poker.CardValue.TEN;
+			case 9: // jack
+				return Poker.CardValue.JACK;
+			case 10: // queen
+				return Poker.CardValue.QUEEN;
+			case 11: // king
+				return Poker.CardValue.KING;
+			case 12: // ace
+				return Poker.CardValue.ACE;
+			default: // invalid case
+				return Poker.CardValue.NULL;
+			}
+	}
+
+	
+	public static Poker.Suit getSuit(int order) {
+		switch (order) {
+			case 0: // hearts
+				return Poker.Suit.HEARTS;
+			case 1: // diamonds
+				return Poker.Suit.DIAMONDS;
+			case 2: // clubs
+				return Poker.Suit.CLUBS;
+			case 3: // spades
+				return Poker.Suit.SPADES;
+			default: // invalid case
+				return Poker.Suit.NULL;
+		}
+	}
+
+	public static boolean royalFlushHelper(CardPool cp) {
+		int numRoyalRun = 0;
+
+		for (int i = Poker.CardValue.TEN.getOrder(); i <= Poker.CardValue.ACE.getOrder(); i++) {
+			for (int k = Poker.Suit.HEARTS.getOrder(); k <= Poker.Suit.SPADES.getOrder(); k++) {
+				if (cp.cardPoolContains(new Card(i, k))) {
+					numRoyalRun++;
+				}
+				else {
+					break;
+				}
+			}
+			if (numRoyalRun >= 5) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public static Hand determineHighestHand(CardPool cp) {
 		// ROYAL FLUSH
-		if ((cp.cardPoolContains(new Card(Poker.CardValue.ACE, 	Poker.Suit.SPADES)) &&
-				cp.cardPoolContains(new Card(Poker.CardValue.KING, 	Poker.Suit.SPADES)) &&
-				cp.cardPoolContains(new Card(Poker.CardValue.QUEEN, Poker.Suit.SPADES)) &&
-				cp.cardPoolContains(new Card(Poker.CardValue.JACK, 	Poker.Suit.SPADES)) &&
-				cp.cardPoolContains(new Card(Poker.CardValue.TEN, 	Poker.Suit.SPADES))) || 
-
-				(cp.cardPoolContains(new Card(Poker.CardValue.ACE, 	Poker.Suit.CLUBS)) &&
-				cp.cardPoolContains(new Card(Poker.CardValue.KING, 	Poker.Suit.CLUBS)) &&
-				cp.cardPoolContains(new Card(Poker.CardValue.QUEEN, Poker.Suit.CLUBS)) &&
-				cp.cardPoolContains(new Card(Poker.CardValue.JACK, 	Poker.Suit.CLUBS)) &&
-				cp.cardPoolContains(new Card(Poker.CardValue.TEN, 	Poker.Suit.CLUBS))) ||
-
-				(cp.cardPoolContains(new Card(Poker.CardValue.ACE, 	Poker.Suit.DIAMONDS)) &&
-				cp.cardPoolContains(new Card(Poker.CardValue.KING, 	Poker.Suit.DIAMONDS)) &&
-				cp.cardPoolContains(new Card(Poker.CardValue.QUEEN, Poker.Suit.DIAMONDS)) &&
-				cp.cardPoolContains(new Card(Poker.CardValue.JACK, 	Poker.Suit.DIAMONDS)) &&
-				cp.cardPoolContains(new Card(Poker.CardValue.TEN, 	Poker.Suit.DIAMONDS))) ||
-
-				(cp.cardPoolContains(new Card(Poker.CardValue.ACE, 	Poker.Suit.HEARTS)) &&
-				cp.cardPoolContains(new Card(Poker.CardValue.KING, 	Poker.Suit.HEARTS)) &&
-				cp.cardPoolContains(new Card(Poker.CardValue.QUEEN, Poker.Suit.HEARTS)) &&
-				cp.cardPoolContains(new Card(Poker.CardValue.JACK, 	Poker.Suit.HEARTS)) &&
-				cp.cardPoolContains(new Card(Poker.CardValue.TEN, 	Poker.Suit.HEARTS)))) {
-			return Poker.Hand.ROYAL_FLUSH;
+		if (royalFlushHelper(cp)) {
+			return Poker.Hand.ROYAL_FLUSH; 
 		}
 
 		// STRAIGHT FLUSH
@@ -114,10 +164,7 @@ public class Poker {
 
 
 		// FLUSH
-		if (cp.numCardPoolContainsSuit(Poker.Suit.SPADES) 	>= 5 || 
-				cp.numCardPoolContainsSuit(Poker.Suit.CLUBS) 		>= 5 ||
-				cp.numCardPoolContainsSuit(Poker.Suit.DIAMONDS) >= 5 ||
-				cp.numCardPoolContainsSuit(Poker.Suit.HEARTS) 	>= 5) {
+		if (cp.maxNumCardPoolContainsSuit() >= 5) { 
 			return Poker.Hand.FLUSH;
 		}
 
@@ -139,6 +186,6 @@ public class Poker {
 			return Poker.Hand.PAIR;
 		}
 
-		return Hand.JUNK;
+		return Poker.Hand.HIGH_CARD;
 	} 
 }

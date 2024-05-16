@@ -7,11 +7,10 @@ public class Deck {
 	public Deck(boolean isShuffled) {
 		deck = new Stack<Card>();
 
-		for (int i = 0; i <= 12; i++) {
-			deck.push(new Card(i, Poker.Suit.HEARTS));
-			deck.push(new Card(i, Poker.Suit.DIAMONDS));
-			deck.push(new Card(i, Poker.Suit.CLUBS));
-			deck.push(new Card(i, Poker.Suit.SPADES));
+		for (int i = Poker.CardValue.TWO.getOrder(); i <= Poker.CardValue.ACE.getOrder(); i++) {
+			for (int k = Poker.Suit.HEARTS.getOrder(); k <= Poker.Suit.SPADES.getOrder(); k++) {
+				deck.push(new Card(i, k));
+			}
 		}
 
 		if (isShuffled) {

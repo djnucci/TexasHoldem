@@ -73,7 +73,7 @@ public class CardPool {
 		return false;
 	}
 
-	public int numCardPoolContainsSuit (Poker.Suit s) {
+	public int numCardPoolContainsSuit(Poker.Suit s) {
 		int numMatches = 0;
 		for (Card card: cards) {
 			if (card.getSuit().equals(s)) {
@@ -82,6 +82,18 @@ public class CardPool {
 		}
 
 		return numMatches;
+	}
+
+	public int maxNumCardPoolContainsSuit() {
+		int maxSuitVal = 1;
+		for (int i = Poker.Suit.HEARTS.getOrder(); i < Poker.Suit.SPADES.getOrder(); i++) {
+			int currNumSuitVal = numCardPoolContainsSuit(Poker.getSuit(i));
+			if (currNumSuitVal > maxSuitVal) {
+				maxSuitVal = currNumSuitVal;
+			}
+		}
+
+		return maxSuitVal;
 	}
 
 	public int longestValueRun() {
