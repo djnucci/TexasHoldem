@@ -127,8 +127,9 @@ public class Poker {
 	public static boolean royalFlushHelper(CardPool cp) {
 		int numRoyalRun = 0;
 
-		for (int i = Poker.CardValue.TEN.getOrder(); i <= Poker.CardValue.ACE.getOrder(); i++) {
-			for (int k = Poker.Suit.HEARTS.getOrder(); k <= Poker.Suit.SPADES.getOrder(); k++) {
+		for (int k = Poker.Suit.HEARTS.getOrder(); k <= Poker.Suit.SPADES.getOrder(); k++) {
+			numRoyalRun = 0;
+			for (int i = Poker.CardValue.TEN.getOrder(); i <= Poker.CardValue.ACE.getOrder(); i++) {
 				if (cp.cardPoolContains(new Card(i, k))) {
 					numRoyalRun++;
 				}

@@ -22,9 +22,9 @@ public class Deck {
 	 * Shuffle the cards using a piles method and randomly selecting which pile to take from and how many piles there are
 	 */
 	private void shuffle() {
-		int randomShuffles = (int) (Math.random() * 5) + 15;
+		int randomShuffles = (int) (Math.random() * 10) + 30;
 		for (int i = 0; i < randomShuffles; i++) {
-			int numPiles = (int) (Math.random() * 7) + 4;
+			int numPiles = (int) (Math.random() * 7) + 5;
 			ArrayList<Stack<Card>> piles = new ArrayList<Stack<Card>>();
 			
 			for (int k = 0; k < numPiles; k++) {

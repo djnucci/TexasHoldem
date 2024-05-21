@@ -1,4 +1,4 @@
-public class Card implements Comparable {
+public class Card implements Comparable<Card> {
 	private final Poker.Suit SUIT;
 	private final Poker.CardValue CARD_VALUE;
 
@@ -59,11 +59,11 @@ public class Card implements Comparable {
 
 	//FIXME compare to will always sort with Aces at the top
 	@Override
-	public int compareTo(Object o) {
-		if (this.getCardValue() == ((Card)o).getCardValue()) {
+	public int compareTo(Card c) {
+		if (this.getCardValue() == c.getCardValue()) {
 			return 0;
 		}
-		else if (this.getCardValue().ranksHigherThan(((Card)o).getCardValue())) {
+		else if (this.getCardValue().ranksHigherThan(c.getCardValue())) {
 			return 1;
 		}
 		else {

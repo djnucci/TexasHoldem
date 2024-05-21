@@ -4,23 +4,23 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Deck mainDeck = new Deck(true);
 
-        CardPool cp = new CardPool(new Card[]{
-            new Card(Poker.CardValue.SEVEN, Poker.Suit.HEARTS),
-            new Card(Poker.CardValue.EIGHT, Poker.Suit.HEARTS),
-            new Card(Poker.CardValue.NINE, Poker.Suit.HEARTS),
-            new Card(Poker.CardValue.TEN, Poker.Suit.HEARTS),
-            new Card(Poker.CardValue.JACK, Poker.Suit.HEARTS),
-            new Card(Poker.CardValue.KING, Poker.Suit.HEARTS),
-            new Card(Poker.CardValue.ACE, Poker.Suit.HEARTS),
-        });
+        // CardPool cp = new CardPool(new Card[]{
+        //     new Card(Poker.CardValue.SEVEN, Poker.Suit.HEARTS),
+        //     new Card(Poker.CardValue.EIGHT, Poker.Suit.HEARTS),
+        //     new Card(Poker.CardValue.JACK, Poker.Suit.HEARTS),
+        //     new Card(Poker.CardValue.TEN, Poker.Suit.HEARTS),
+        //     new Card(Poker.CardValue.QUEEN, Poker.Suit.HEARTS),
+        //     new Card(Poker.CardValue.KING, Poker.Suit.HEARTS),
+        //     new Card(Poker.CardValue.ACE, Poker.Suit.HEARTS),
+        // });
 
-        cp.sortCardPool();
-        System.out.println(Poker.determineHighestHand(cp));
+        // cp.sortCardPool();
+        // System.out.println(Poker.determineHighestHand(cp));
 
         Scanner scan = new Scanner(System.in);
         System.out.println("Game started. How many players would like to play?");
         // Player[] players = new Player[scan.nextInt()];
-        Player[] players = new Player[22];
+        Player[] players = new Player[6];
 
         for (int i = 0; i < players.length; i++) {
             players[i] = new Player(i);
@@ -40,7 +40,7 @@ public class Main {
 
         for (Player p: players) {
             p.sortCardPool();
-            // System.out.println("Player " + p.getNum() + ":\t" + p + "   \t\t"+ Poker.determineHighestHand(new CardPool(p.getCards(), commCards.getCards())));
+            System.out.println("Player " + p.getNum() + ":\t" + p + "   \t\t"+ Poker.determineHighestHand(new CardPool(p.getCards(), commCards.getCards())));
         }
 
     }
