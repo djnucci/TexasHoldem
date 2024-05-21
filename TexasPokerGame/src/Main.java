@@ -4,18 +4,18 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Deck mainDeck = new Deck(true);
 
-        // CardPool cp = new CardPool(new Card[]{
-        //     new Card(Poker.CardValue.SEVEN, Poker.Suit.HEARTS),
-        //     new Card(Poker.CardValue.EIGHT, Poker.Suit.HEARTS),
-        //     new Card(Poker.CardValue.JACK, Poker.Suit.HEARTS),
-        //     new Card(Poker.CardValue.TEN, Poker.Suit.HEARTS),
-        //     new Card(Poker.CardValue.QUEEN, Poker.Suit.HEARTS),
-        //     new Card(Poker.CardValue.KING, Poker.Suit.HEARTS),
-        //     new Card(Poker.CardValue.ACE, Poker.Suit.HEARTS),
-        // });
+        CardPool cPool = new CardPool(new Card[]{
+            new Card(Poker.CardValue.SEVEN, Poker.Suit.HEARTS),
+            new Card(Poker.CardValue.EIGHT, Poker.Suit.HEARTS),
+            new Card(Poker.CardValue.JACK, Poker.Suit.HEARTS),
+            new Card(Poker.CardValue.TEN, Poker.Suit.HEARTS),
+            new Card(Poker.CardValue.QUEEN, Poker.Suit.HEARTS),
+            new Card(Poker.CardValue.KING, Poker.Suit.HEARTS),
+            new Card(Poker.CardValue.ACE, Poker.Suit.HEARTS),
+        });
 
-        // cp.sortCardPool();
-        // System.out.println(Poker.determineHighestHand(cp));
+        cPool.sortCardPool();
+        System.out.println(Poker.determineHighestHand(cPool));
 
         Scanner scan = new Scanner(System.in);
         System.out.println("Game started. How many players would like to play?");
@@ -36,12 +36,12 @@ public class Main {
         commCards.setRiver(mainDeck.burnAndDealOne()); // river
         System.out.println("Here are the community cards after the River...");
         commCards.sortCardPool();
-        System.out.println(commCards);
+        // System.out.println(commCards);
 
-        for (Player p: players) {
-            p.sortCardPool();
-            System.out.println("Player " + p.getNum() + ":\t" + p + "   \t\t"+ Poker.determineHighestHand(new CardPool(p.getCards(), commCards.getCards())));
-        }
+        // for (Player p: players) {
+        //     p.sortCardPool();
+        //     System.out.println("Player " + p.getNum() + ":\t" + p + "   \t\t"+ Poker.determineHighestHand(new CardPool(p.getCards(), commCards.getCards())));
+        // }
 
     }
 }

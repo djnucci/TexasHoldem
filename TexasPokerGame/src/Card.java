@@ -61,7 +61,15 @@ public class Card implements Comparable<Card> {
 	@Override
 	public int compareTo(Card c) {
 		if (this.getCardValue() == c.getCardValue()) {
-			return 0;
+			if (this.getSuit().ranksEqualTo(c.getSuit())) {
+				return 0;
+			}
+			else if (this.getSuit().ranksHigherThan(c.getSuit())) {
+				return 1;
+			}
+			else {
+				return -1;
+			}
 		}
 		else if (this.getCardValue().ranksHigherThan(c.getCardValue())) {
 			return 1;

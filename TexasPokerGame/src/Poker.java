@@ -124,13 +124,16 @@ public class Poker {
 		}
 	}
 
-	public static boolean royalFlushHelper(CardPool cp) {
+	public static WinningHand royalFlushHelper(CardPool cPool) {
 		int numRoyalRun = 0;
+		WinningHand winningHand = new WinningHand();
 
 		for (int k = Poker.Suit.HEARTS.getOrder(); k <= Poker.Suit.SPADES.getOrder(); k++) {
 			numRoyalRun = 0;
 			for (int i = Poker.CardValue.TEN.getOrder(); i <= Poker.CardValue.ACE.getOrder(); i++) {
-				if (cp.cardPoolContains(new Card(i, k))) {
+				Card currCard = new Card(i, k);
+				if (cPool.cardPoolContains(currCard)) {
+					winningHand.appendCard(currCard);
 					numRoyalRun++;
 				}
 				else {
@@ -138,55 +141,58 @@ public class Poker {
 				}
 			}
 			if (numRoyalRun >= 5) {
-				return true;
+				winningHand.setHandValue(Poker.Hand.ROYAL_FLUSH);
+				return winningHand;
 			}
 		}
 
-		return false;
+		return winningHand;
 	}
 
-	public static Hand determineHighestHand(CardPool cp) {
+	public static WinningHand determineHighestHand(CardPool cPool) {
+		WinningHand winningHand = new WinningHand(cPool.getLargestCard());
+
 		// ROYAL FLUSH
-		if (royalFlushHelper(cp)) {
-			return Poker.Hand.ROYAL_FLUSH; 
+		if ((winningHand = royalFlushHelper(cPool)).size() == 5) {
+			return winningHand; 
 		}
 
 		// STRAIGHT FLUSH
-		if (cp.longestValueAndSuitRun() >= 5) {
-			return Poker.Hand.STRAIGHT_FLUSH;
+		if ((winningHand = cPool.straightFlushHelper()).size() == 5) {
+			return winningHand;
 		}
 
-		// FOUR OF A KIND
-		if (cp.maxCountValueOccurrences() == 4) {
-			return Poker.Hand.FOUR_OF_A_KIND;
+		// FOUR OF A KIND FIXME
+		if ((winningHand = cPool.maxPoolOccurences()).size() == 4) {
+			return winningHand;
 		}
 
 		// FULL HOUSE
 
 
-		// FLUSH
-		if (cp.maxNumCardPoolContainsSuit() >= 5) { 
-			return Poker.Hand.FLUSH;
+		// FLUSH FIXME
+		if (cPool.maxNumCardPoolContainsSuit() >= 5) { 
+			return winningHand;
 		}
 
-		// STRAIGHT
-		if (cp.longestValueRun() >= 5) {
-			return Poker.Hand.STRAIGHT;
+		// STRAIGHT FIXME
+		if (cPool.longestValueRun() >= 5) {
+			return winningHand;
 		}
 
-		// THREE OF A KIND
-		if (cp.maxCountValueOccurrences() == 3) {
-			return Poker.Hand.THREE_OF_A_KIND;
+		// THREE OF A KIND FIXME
+		if (cPool.maxCountValueOccurrences() == 3) {
+			return winningHand;
 		}
 
 		// TWO PAIR
 		
 
-		// PAIR
-		if (cp.maxCountValueOccurrences() == 2) {
-			return Poker.Hand.PAIR;
+		// PAIR FIXME
+		if (cPool.maxCountValueOccurrences() == 2) {
+			return winningHand;
 		}
 
-		return Poker.Hand.HIGH_CARD;
+		return winningHand;
 	} 
 }
