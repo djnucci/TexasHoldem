@@ -149,8 +149,10 @@ public class Poker {
 		return winningHand;
 	}
 
-	public static WinningHand determineHighestHand(CardPool cPool) {
-		WinningHand winningHand = new WinningHand(cPool.getLargestCard());
+	public static WinningHand determineHighestHand(Player hand, Community commCards) {
+		CardPool cPool = new CardPool(hand.getCards(), commCards.getCards());
+		cPool.sortCardPool();
+		WinningHand winningHand;
 
 		// ROYAL FLUSH
 		if ((winningHand = royalFlushHelper(cPool)).size() == 5) {
@@ -193,6 +195,6 @@ public class Poker {
 			return winningHand;
 		}
 
-		return winningHand;
+		return new WinningHand(hand.getLargestCard(), Poker.Hand.HIGH_CARD);
 	} 
 }

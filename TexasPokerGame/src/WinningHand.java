@@ -4,10 +4,17 @@ public class WinningHand extends CardPool {
 
 	public WinningHand() {
 		super(0);
+		handValue = Poker.Hand.JUNK;
 	}
 
 	public WinningHand(Card card) {
 		super(card);
+		handValue = Poker.Hand.JUNK;
+	}
+
+	public WinningHand(Card card, Poker.Hand ph) {
+		super(card);
+		this.handValue = ph;
 	}
 
 	public WinningHand(Card[] cards, Poker.Hand ph) {
@@ -34,6 +41,6 @@ public class WinningHand extends CardPool {
 			}	
 		}
 
-		return this.handValue + ": " + retString;
+		return this.handValue + ": " + (this.size() < 1 ? retString : retString.toString().substring(0, retString.length()-2));
 	}
 }

@@ -175,10 +175,10 @@ public class CardPool {
 		int numConsecutive = 1, count = 1;
 		WinningHand winningHand = new WinningHand();
 
-		for (int i = this.cards.length - 2; i >= 1; i--) {
-			if (!this.cards[i].equals(this.cards[i + 1])) {
-        if ((this.cards[i].getCardValue().getOrder() - this.cards[i + 1].getCardValue().getOrder() == 1 &&
-						this.cards[i].getSuit().ranksEqualTo(this.cards[i + 1].getSuit())) 
+		for (int i = this.cards.length - 1; i >= 1; i--) {
+			if (!this.cards[i].equals(this.cards[i - 1])) {
+        if ((this.cards[i].getCardValue().getOrder() - this.cards[i - 1].getCardValue().getOrder() == 1 &&
+						this.cards[i].getSuit().ranksEqualTo(this.cards[i - 1].getSuit())) 
 						&& count < 5) {
 							winningHand.appendCard(this.cards[i]);
 							count += 1;
@@ -186,6 +186,7 @@ public class CardPool {
         else {
           numConsecutive = Math.max(count, numConsecutive);
 					if (numConsecutive == 5) {
+						winningHand.appendCard(this.cards[i]); // needed because append if statement does a look ahead
 						winningHand.setHandValue(Poker.Hand.STRAIGHT_FLUSH);
 						return winningHand;
 					}
