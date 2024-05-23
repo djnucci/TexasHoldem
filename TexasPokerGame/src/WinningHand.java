@@ -22,12 +22,37 @@ public class WinningHand extends CardPool {
 		this.handValue = ph;
 	}
 
+	public WinningHand(CardPool cPool, Poker.Hand ph) {
+		super(cPool.getCards());
+		handValue = ph;
+	}
+
 	public void setHandValue(Poker.Hand handValue) {
 		this.handValue = handValue;
 	}
 
 	public Poker.Hand getHandValue() {
 		return handValue;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof WinningHand) || size() != ((WinningHand)obj).size()) {
+			return false;
+		} 
+
+		Card[] compareCards = ((WinningHand)obj).getCards();
+		for (int i = 0; i < size(); i++) {
+			if (compareCards[i] != getCards()[i]) {
+				return false;
+			}
+		}
+
+		if (this.getHandValue() != ((WinningHand)obj).getHandValue()) {
+			return false;
+		}
+
+		return true;
 	}
 
 	@Override

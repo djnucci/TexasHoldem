@@ -124,6 +124,21 @@ public class Poker {
 		}
 	}
 
+	public static Poker.Hand getHand(int numOccurences) {
+		switch (numOccurences) {
+			case 1:
+				return Poker.Hand.HIGH_CARD;
+			case 2:
+				return Poker.Hand.PAIR;
+			case 3:
+				return Poker.Hand.THREE_OF_A_KIND;
+			case 4:
+				return Poker.Hand.FOUR_OF_A_KIND;
+			default:
+				return Poker.Hand.JUNK;
+		}
+	}
+
 	public static WinningHand royalFlushHelper(CardPool cPool) {
 		int numRoyalRun = 0;
 		WinningHand winningHand = new WinningHand();
@@ -164,8 +179,8 @@ public class Poker {
 			return winningHand;
 		}
 
-		// FOUR OF A KIND FIXME
-		if ((winningHand = cPool.maxPoolOccurences()).size() == 4) {
+		// FOUR OF A KIND
+		if (!(winningHand = cPool.handOfNumOccurences(4)).equals(new WinningHand())) {
 			return winningHand;
 		}
 
@@ -182,16 +197,16 @@ public class Poker {
 			return winningHand;
 		}
 
-		// THREE OF A KIND FIXME
-		if (cPool.maxCountValueOccurrences() == 3) {
+		// THREE OF A KIND
+		if (!(winningHand = cPool.handOfNumOccurences(3)).equals(new WinningHand())) {
 			return winningHand;
 		}
 
 		// TWO PAIR
 		
 
-		// PAIR FIXME
-		if (cPool.maxCountValueOccurrences() == 2) {
+		// PAIR
+		if (!(winningHand = cPool.handOfNumOccurences(2)).equals(new WinningHand())) {
 			return winningHand;
 		}
 

@@ -9,9 +9,9 @@ public class Main {
         //     new Card(Poker.CardValue.NINE, Poker.Suit.HEARTS)});
         // Community community = new Community(new Card[]{
         //     new Card(Poker.CardValue.TEN, Poker.Suit.HEARTS),
-        //     new Card(Poker.CardValue.JACK, Poker.Suit.HEARTS),
-        //     new Card(Poker.CardValue.QUEEN, Poker.Suit.HEARTS),
-        //     new Card(Poker.CardValue.KING, Poker.Suit.HEARTS),
+        //     new Card(Poker.CardValue.ACE, Poker.Suit.HEARTS),
+        //     new Card(Poker.CardValue.ACE, Poker.Suit.HEARTS),
+        //     new Card(Poker.CardValue.ACE, Poker.Suit.HEARTS),
         //     new Card(Poker.CardValue.ACE, Poker.Suit.HEARTS),
         // });
 

@@ -210,7 +210,14 @@ public class CardPool {
 		return cPool;
 	}
 
-	public WinningHand maxPoolOccurences() {
+	public WinningHand handOfNumOccurences(int numOccurences) {
+		for (Card c: this.cards) {
+			CardPool cPool = poolOccurences(c);
+			if (cPool.size() == numOccurences) {
+				return new WinningHand(cPool, Poker.getHand(numOccurences));
+			} 
+		}
+
 		return new WinningHand();
 	}
 
