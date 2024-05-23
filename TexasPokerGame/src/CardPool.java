@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Collections;
 
 public class CardPool {
 	private Card[] cards;
@@ -211,7 +212,10 @@ public class CardPool {
 	}
 
 	public WinningHand handOfNumOccurences(int numOccurences) {
-		for (Card c: this.cards) {
+		Card[] reversedOrderCards = getCards();
+		Arrays.sort(reversedOrderCards, Collections.reverseOrder());
+		
+		for (Card c: reversedOrderCards) {
 			CardPool cPool = poolOccurences(c);
 			if (cPool.size() == numOccurences) {
 				return new WinningHand(cPool, Poker.getHand(numOccurences));
