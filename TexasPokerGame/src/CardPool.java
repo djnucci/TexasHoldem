@@ -112,45 +112,15 @@ public class CardPool {
 		return false;
 	}
 
-	public int numCardPoolContainsSuit(Poker.Suit s) {
-		int numMatches = 0;
-		for (Card card: cards) {
-			if (card.getSuit().equals(s)) {
-				numMatches++;
+	public CardPool createPoolOfSuit(Poker.Suit s) {
+		CardPool cPool = new CardPool(0);
+		for (Card card: getCards()) {
+			if (card.getSuit().equals(s) && cPool.size() < 5) {
+				cPool.appendCard(card);
 			}
 		}
 
-		return numMatches;
-	}
-
-	public int maxNumCardPoolContainsSuit() {
-		int maxSuitVal = 1;
-		for (int i = Poker.Suit.HEARTS.getOrder(); i < Poker.Suit.SPADES.getOrder(); i++) {
-			int currNumSuitVal = numCardPoolContainsSuit(Poker.getSuit(i));
-			if (currNumSuitVal > maxSuitVal) {
-				maxSuitVal = currNumSuitVal;
-			}
-		}
-
-		return maxSuitVal;
-	}
-
-	public int longestValueRun() {
-		int numConsecutive = 1, count = 1;
-
-		for (int i = 1; i < this.cards.length; i++) {
-			if (!this.cards[i].equals(this.cards[i - 1])) {
-        if (this.cards[i].getCardValue().getOrder() - this.cards[i - 1].getCardValue().getOrder() == 1) {
-          count += 1;
-        }
-        else {
-          numConsecutive = Math.max(count, numConsecutive);
-          count = 1;
-        }
-      }
-		}
-
-		return Math.max(count, numConsecutive);
+		return cPool;
 	}
 
 	public int longestValueAndSuitRun() {
@@ -199,6 +169,45 @@ public class CardPool {
 		return new WinningHand();
 	}
 
+	public WinningHand straightHelper() {
+		int numConsecutive = 1, count = 1;
+		WinningHand winningHand = new WinningHand();
+
+		for (int i = this.cards.length - 1; i >= 1; i--) {
+			if (!this.cards[i].equals(this.cards[i - 1])) {
+        if (Math.abs(this.cards[i].getCardValue().getOrder() - this.cards[i - 1].getCardValue().getOrder()) == 1 
+						&& count < 5) {
+							winningHand.appendCard(this.cards[i]);
+							count += 1;
+        }
+        else {
+          numConsecutive = Math.max(count, numConsecutive);
+					if (numConsecutive == 5) {
+						winningHand.appendCard(this.cards[i]); // needed because append if statement does a look ahead
+						winningHand.setHandValue(Poker.Hand.STRAIGHT);
+						return winningHand;
+					}
+          count = 1;
+        }
+      }
+		}
+
+		return new WinningHand();
+	}
+
+	public WinningHand flushHelper() {
+		CardPool[] suitPools = new CardPool[4];
+		for (int i = Poker.Suit.HEARTS.getOrder(); i < Poker.Suit.SPADES.getOrder(); i++) {
+			suitPools[i] = createPoolOfSuit(Poker.getSuit(i));
+			if (suitPools[i].size() == 5) {
+				return new WinningHand(suitPools[i], Poker.Hand.FLUSH);
+			}
+		}
+
+
+		return new WinningHand();
+	}
+
 	public CardPool poolOccurences(Card compareCard) {
 		CardPool cPool = new CardPool(0);
 
@@ -214,7 +223,7 @@ public class CardPool {
 	public WinningHand handOfNumOccurences(int numOccurences) {
 		Card[] reversedOrderCards = getCards();
 		Arrays.sort(reversedOrderCards, Collections.reverseOrder());
-		
+
 		for (Card c: reversedOrderCards) {
 			CardPool cPool = poolOccurences(c);
 			if (cPool.size() == numOccurences) {
@@ -223,21 +232,6 @@ public class CardPool {
 		}
 
 		return new WinningHand();
-	}
-
-	@Deprecated
-	public int maxCountValueOccurrences() {
-		int maxCount = 0;
-
-		for (Card c: this.cards) {
-			// int currCount = countValueOccurrences(c);
-			int currCount = 0;
-			if (currCount > maxCount) {
-				maxCount = currCount;
-			} 
-		}
-
-		return maxCount;
 	}
 
 	public Card getLargestCard() {

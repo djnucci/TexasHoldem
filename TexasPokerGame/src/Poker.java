@@ -184,16 +184,16 @@ public class Poker {
 			return winningHand;
 		}
 
-		// FULL HOUSE
+		// FULL HOUSE TODO
 
 
-		// FLUSH FIXME
-		if (cPool.maxNumCardPoolContainsSuit() >= 5) { 
+		// FLUSH
+		if ((winningHand = cPool.flushHelper()).size() == 5) {
 			return winningHand;
 		}
 
-		// STRAIGHT FIXME
-		if (cPool.longestValueRun() >= 5) {
+		// STRAIGHT
+		if ((winningHand = cPool.straightHelper()).size() == 5) {
 			return winningHand;
 		}
 
@@ -202,7 +202,7 @@ public class Poker {
 			return winningHand;
 		}
 
-		// TWO PAIR
+		// TWO PAIR TODO
 		
 
 		// PAIR
