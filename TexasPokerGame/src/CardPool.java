@@ -113,8 +113,11 @@ public class CardPool {
 	}
 
 	public CardPool createPoolOfSuit(Poker.Suit s) {
+		Card[] reversedOrderCards = getCards().clone();
+		Arrays.sort(reversedOrderCards, Collections.reverseOrder());
 		CardPool cPool = new CardPool(0);
-		for (Card card: getCards()) {
+
+		for (Card card: reversedOrderCards) {
 			if (card.getSuit().equals(s) && cPool.size() < 5) {
 				cPool.appendCard(card);
 			}
@@ -123,26 +126,7 @@ public class CardPool {
 		return cPool;
 	}
 
-	public int longestValueAndSuitRun() {
-		int numConsecutive = 1, count = 1;
-
-		for (int i = 1; i < this.cards.length; i++) {
-			if (!this.cards[i].equals(this.cards[i - 1])) {
-        if (this.cards[i].getCardValue().getOrder() - this.cards[i - 1].getCardValue().getOrder() == 1 &&
-						this.cards[i].getSuit().ranksEqualTo(this.cards[i - 1].getSuit())) {
-          count += 1;
-        }
-        else {
-          numConsecutive = Math.max(count, numConsecutive);
-          count = 1;
-        }
-      }
-		}
-
-		return Math.max(count, numConsecutive);
-	}
-
-	public WinningHand straightFlushHelper() {
+		public WinningHand straightFlushHelper() {
 		int numConsecutive = 1, count = 1;
 		WinningHand winningHand = new WinningHand();
 
@@ -221,7 +205,7 @@ public class CardPool {
 	}
 
 	public WinningHand handOfNumOccurences(int numOccurences) {
-		Card[] reversedOrderCards = getCards();
+		Card[] reversedOrderCards = getCards().clone();
 		Arrays.sort(reversedOrderCards, Collections.reverseOrder());
 
 		for (Card c: reversedOrderCards) {
