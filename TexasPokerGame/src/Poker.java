@@ -1,4 +1,12 @@
+/**
+ * Class that contains the majority of the rules and elements of poker
+ */
 public class Poker {
+
+	/**
+	 * The suits of the cards in poker <p>
+	 * Contains the order of precedence for each flush
+	 */
 	public enum Suit {
 		NULL(-1), HEARTS(0), DIAMONDS(1), CLUBS(2), SPADES(3);
 
@@ -24,6 +32,11 @@ public class Poker {
 		}
 	}
 
+	/**
+	 * The different numbers / names of all the cards in poker (minus joker) <p>
+	 * Each has two values (one is used only for aces and should probably be removed) <p>
+	 * Contains the order of precedence for each hand that requires it 
+	 */
 	public enum CardValue {
 		NULL(-1,-1,-1), ACE(1, 11, 12), TWO(2, 0, 0), THREE(3, 0, 1), FOUR(4, 0, 2), 
 		FIVE(5, 0, 3), SIX(6, 0, 4), SEVEN(7, 0, 5), EIGHT(8, 0, 6), NINE(9, 0, 7), 
@@ -62,6 +75,10 @@ public class Poker {
 		}
 	}
 
+	/**
+	 * All the valid hands in poker plus junk for a null value <p>
+	 * Ranked by which is the better hand
+	 */
 	public enum Hand {
 		JUNK(0), HIGH_CARD(1), PAIR(2), TWO_PAIR(3), THREE_OF_A_KIND(4), STRAIGHT(5), 
 		FLUSH(6), FULL_HOUSE(7), FOUR_OF_A_KIND(8), STRAIGHT_FLUSH(9), ROYAL_FLUSH(10);
@@ -75,6 +92,11 @@ public class Poker {
 		}
 	}
 
+	/**
+	 * Get the enum of card value based on it's order
+	 * @param order - the coder created order value
+	 * @return card value enum
+	 */
 	public static Poker.CardValue getCardValue(int order) {
 		switch (order) {
 			case 0: // two
@@ -109,6 +131,11 @@ public class Poker {
 	}
 
 	
+	/**
+	 * Get the enum of suit based on it's order
+	 * @param order - the coder created order value
+	 * @return suit enum
+	 */
 	public static Poker.Suit getSuit(int order) {
 		switch (order) {
 			case 0: // hearts
@@ -124,6 +151,11 @@ public class Poker {
 		}
 	}
 
+	/**
+	 * Get the enum of hand value based on it's order
+	 * @param order - the coder created order value
+	 * @return hand enum
+	 */
 	public static Poker.Hand getHand(int numOccurences) {
 		switch (numOccurences) {
 			case 1:
@@ -140,6 +172,12 @@ public class Poker {
 	}
 
 
+	/**
+	 * Evaluate what the winning hand based on a Player's hand and the Community pile
+	 * @param hand - Player hand
+	 * @param commCards - Community card pile
+	 * @return Winning pile of cards
+	 */
 	public static WinningHand determineHighestHand(Player hand, Community commCards) {
 		CardPool cPool = new CardPool(hand, commCards);
 		cPool.sortCardPool();
