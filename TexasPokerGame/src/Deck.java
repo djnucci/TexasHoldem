@@ -4,6 +4,10 @@ import java.util.Stack;
 public class Deck {
 	private Stack<Card> deck;
 
+	/**
+	 * Default constructor
+	 * @param isShuffled - if the deck should be shuffled after creation
+	 */
 	public Deck(boolean isShuffled) {
 		deck = new Stack<Card>();
 
@@ -78,6 +82,11 @@ public class Deck {
 		}
 	}
 
+	/**
+	 * Private helper for the shuffle method to invert a pile of cards
+	 * @param pile - the pile to be inverted
+	 * @return the inverted pile
+	 */
 	private Stack<Card> invertPile(Stack<Card> pile) {
 		Stack<Card> tempStack = new Stack<Card>();
 
@@ -88,10 +97,18 @@ public class Deck {
 		return tempStack;
 	}
 
+	/**
+	 * Deal a card from the top of the deck
+	 * @return the card
+	 */
 	public Card dealCard() {
 		return deck.pop();
 	}
 
+	/**
+	 * Burn a card and deal 3 for the flop in the community
+	 * @return array of cards dealt
+	 */
 	public Card[] dealFlop() {
 		Card[] flopCards = new Card[3];
 
@@ -104,11 +121,18 @@ public class Deck {
 		return flopCards;
 	}
 
+	/**
+	 * Burn a card and deal one for the turn and river
+	 * @return the card delt
+	 */
 	public Card burnAndDealOne() {
 		dealCard();
 		return dealCard();
 	}
 
+	/**
+	 * @return the size of the deck
+	 */
 	public int size() {
 		return deck.size();
 	}

@@ -261,24 +261,22 @@ public class CardPool {
 		return cPool;
 	}
 
-	public WinningHand handOfNumOccurences(int numOccurences) {
+	public WinningHand matchHandWithMaxNumOccurences() {
 		Card[] reversedOrderCards = getCards().clone();
 		Arrays.sort(reversedOrderCards, Collections.reverseOrder());
 
 		for (Card c: reversedOrderCards) {
 			CardPool cPool = poolOccurences(c);
-			if (cPool.size() == numOccurences) {
-				return new WinningHand(cPool, Poker.getHand(numOccurences));
-			} 
+			return new WinningHand(cPool, Poker.getHand(cPool.size()));
 		}
 
 		return new WinningHand();
 	}
 
-
+	// FIXME
 	public WinningHand checkFullHouseTwoPair() {
 
-		
+
 		return new WinningHand();
 	}
 

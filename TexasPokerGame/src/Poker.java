@@ -156,12 +156,14 @@ public class Poker {
 		}
 
 		// FOUR OF A KIND
-		if ((winningHand = cPool.handOfNumOccurences(4)).getHandValue() == Poker.Hand.FOUR_OF_A_KIND) {
+		if ((winningHand = cPool.matchHandWithMaxNumOccurences()).getHandValue() == Poker.Hand.FOUR_OF_A_KIND) {
 			return winningHand;
 		}
 
 		// FULL HOUSE TODO
-
+		if ((winningHand = cPool.checkFullHouseTwoPair()).getHandValue() == Poker.Hand.FULL_HOUSE) {
+			return winningHand;
+		}
 
 		// FLUSH
 		if ((winningHand = cPool.flushHelper()).getHandValue() == Poker.Hand.FLUSH) {
@@ -173,16 +175,18 @@ public class Poker {
 			return winningHand;
 		}
 
-		// THREE OF A KIND
-		if ((winningHand = cPool.handOfNumOccurences(3)).getHandValue() == Poker.Hand.THREE_OF_A_KIND) {
+		// THREE OF A KIND 
+		if ((winningHand = cPool.matchHandWithMaxNumOccurences()).getHandValue() == Poker.Hand.THREE_OF_A_KIND) {
 			return winningHand;
 		}
 
 		// TWO PAIR TODO
+		if ((winningHand = cPool.checkFullHouseTwoPair()).getHandValue() == Poker.Hand.FULL_HOUSE) {
+			return winningHand;
+		}
 		
-
-		// PAIR
-		if ((winningHand = cPool.handOfNumOccurences(2)).getHandValue() == Poker.Hand.PAIR) {
+		// PAIR 
+		if ((winningHand = cPool.matchHandWithMaxNumOccurences()).getHandValue() == Poker.Hand.PAIR) {
 			return winningHand;
 		}
 
