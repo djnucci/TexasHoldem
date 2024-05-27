@@ -1,5 +1,7 @@
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 public class CardPool {
 	private Card[] cards;
@@ -24,6 +26,17 @@ public class CardPool {
 		}
 		for (int i = pileOne.length; i < pileOne.length + pileTwo.length; i++) {
 			setCardByIndex(i, pileTwo[i-pileOne.length]);
+		}
+	}
+
+	public CardPool (Player pileOne, Community pileTwo) {
+		cards = new Card[pileOne.getCards().length + pileTwo.getCards().length];
+
+		for (int i = 0; i < pileOne.getCards().length; i++) {
+			setCardByIndex(i, pileOne.getCards()[i]);
+		}
+		for (int i = pileOne.getCards().length; i < pileOne.getCards().length + pileTwo.getCards().length; i++) {
+			setCardByIndex(i, pileTwo.getCards()[i-pileOne.getCards().length]);
 		}
 	}
 
@@ -71,6 +84,25 @@ public class CardPool {
 			return false;
 		}
 		return true;
+	}
+
+	public boolean remove(Card c) {
+		if (this.cardPoolContains(getLargestCard())) {
+			Card[] newCards = new Card[getCards().length - 1];
+
+			for (int i = 0, k = 0; i < getCards().length; i++) {
+				if (!cards[i].equals(c)) {
+					newCards[k] = cards[i];
+					k++;
+				}
+			}
+
+     	setCards(newCards);
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	public int size() {
@@ -126,7 +158,32 @@ public class CardPool {
 		return cPool;
 	}
 
-		public WinningHand straightFlushHelper() {
+	public WinningHand royalFlushHelper() {
+		int numRoyalRun = 0;
+		WinningHand winningHand = new WinningHand();
+
+		for (int k = Poker.Suit.HEARTS.getOrder(); k <= Poker.Suit.SPADES.getOrder(); k++) {
+			numRoyalRun = 0;
+			for (int i = Poker.CardValue.TEN.getOrder(); i <= Poker.CardValue.ACE.getOrder(); i++) {
+				Card currCard = new Card(i, k);
+				if (this.cardPoolContains(currCard)) {
+					winningHand.appendCard(currCard);
+					numRoyalRun++;
+				}
+				else {
+					break;
+				}
+			}
+			if (numRoyalRun >= 5) {
+				winningHand.setHandValue(Poker.Hand.ROYAL_FLUSH);
+				return winningHand;
+			}
+		}
+
+		return winningHand;
+	}
+
+	public WinningHand straightFlushHelper() {
 		int numConsecutive = 1, count = 1;
 		WinningHand winningHand = new WinningHand();
 
@@ -215,6 +272,13 @@ public class CardPool {
 			} 
 		}
 
+		return new WinningHand();
+	}
+
+
+	public WinningHand checkFullHouseTwoPair() {
+
+		
 		return new WinningHand();
 	}
 

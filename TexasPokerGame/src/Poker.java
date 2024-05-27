@@ -139,48 +139,24 @@ public class Poker {
 		}
 	}
 
-	public static WinningHand royalFlushHelper(CardPool cPool) {
-		int numRoyalRun = 0;
-		WinningHand winningHand = new WinningHand();
-
-		for (int k = Poker.Suit.HEARTS.getOrder(); k <= Poker.Suit.SPADES.getOrder(); k++) {
-			numRoyalRun = 0;
-			for (int i = Poker.CardValue.TEN.getOrder(); i <= Poker.CardValue.ACE.getOrder(); i++) {
-				Card currCard = new Card(i, k);
-				if (cPool.cardPoolContains(currCard)) {
-					winningHand.appendCard(currCard);
-					numRoyalRun++;
-				}
-				else {
-					break;
-				}
-			}
-			if (numRoyalRun >= 5) {
-				winningHand.setHandValue(Poker.Hand.ROYAL_FLUSH);
-				return winningHand;
-			}
-		}
-
-		return winningHand;
-	}
 
 	public static WinningHand determineHighestHand(Player hand, Community commCards) {
-		CardPool cPool = new CardPool(hand.getCards(), commCards.getCards());
+		CardPool cPool = new CardPool(hand, commCards);
 		cPool.sortCardPool();
 		WinningHand winningHand;
 
 		// ROYAL FLUSH
-		if ((winningHand = royalFlushHelper(cPool)).size() == 5) {
+		if ((winningHand = cPool.royalFlushHelper()).getHandValue() == Poker.Hand.ROYAL_FLUSH) {
 			return winningHand; 
 		}
 
 		// STRAIGHT FLUSH
-		if ((winningHand = cPool.straightFlushHelper()).size() == 5) {
+		if ((winningHand = cPool.straightFlushHelper()).getHandValue() == Poker.Hand.STRAIGHT_FLUSH) {
 			return winningHand;
 		}
 
 		// FOUR OF A KIND
-		if (!(winningHand = cPool.handOfNumOccurences(4)).equals(new WinningHand())) {
+		if ((winningHand = cPool.handOfNumOccurences(4)).getHandValue() == Poker.Hand.FOUR_OF_A_KIND) {
 			return winningHand;
 		}
 
@@ -188,17 +164,17 @@ public class Poker {
 
 
 		// FLUSH
-		if ((winningHand = cPool.flushHelper()).size() == 5) {
+		if ((winningHand = cPool.flushHelper()).getHandValue() == Poker.Hand.FLUSH) {
 			return winningHand;
 		}
 
 		// STRAIGHT
-		if ((winningHand = cPool.straightHelper()).size() == 5) {
+		if ((winningHand = cPool.straightHelper()).getHandValue() == Poker.Hand.STRAIGHT) {
 			return winningHand;
 		}
 
 		// THREE OF A KIND
-		if (!(winningHand = cPool.handOfNumOccurences(3)).equals(new WinningHand())) {
+		if ((winningHand = cPool.handOfNumOccurences(3)).getHandValue() == Poker.Hand.THREE_OF_A_KIND) {
 			return winningHand;
 		}
 
@@ -206,7 +182,7 @@ public class Poker {
 		
 
 		// PAIR
-		if (!(winningHand = cPool.handOfNumOccurences(2)).equals(new WinningHand())) {
+		if ((winningHand = cPool.handOfNumOccurences(2)).getHandValue() == Poker.Hand.PAIR) {
 			return winningHand;
 		}
 
