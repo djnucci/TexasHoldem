@@ -158,7 +158,7 @@ public class CardPool {
 		WinningHand winningHand = new WinningHand();
 
 		for (int i = this.cards.length - 1; i >= 1; i--) {
-			if (!this.cards[i].equals(this.cards[i - 1])) {
+			if (!this.cards[i].ranksEqualTo(this.cards[i - 1])) {
         if (Math.abs(this.cards[i].getCardValue().getOrder() - this.cards[i - 1].getCardValue().getOrder()) == 1 
 						&& count < 5) {
 							winningHand.appendCard(this.cards[i]);

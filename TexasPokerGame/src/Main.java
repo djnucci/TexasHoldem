@@ -5,14 +5,14 @@ public class Main {
         Deck mainDeck = new Deck(true);
 
         Player player = new Player(0, new Card[]{
-            new Card(Poker.CardValue.EIGHT, Poker.Suit.HEARTS),
-            new Card(Poker.CardValue.NINE, Poker.Suit.HEARTS)});
+            new Card(Poker.CardValue.TWO, Poker.Suit.SPADES),
+            new Card(Poker.CardValue.EIGHT, Poker.Suit.HEARTS)});
         Community community = new Community(new Card[]{
+            new Card(Poker.CardValue.SEVEN, Poker.Suit.SPADES),
+            new Card(Poker.CardValue.EIGHT, Poker.Suit.DIAMONDS),
+            new Card(Poker.CardValue.NINE, Poker.Suit.CLUBS),
             new Card(Poker.CardValue.TEN, Poker.Suit.HEARTS),
-            new Card(Poker.CardValue.JACK, Poker.Suit.SPADES),
-            new Card(Poker.CardValue.QUEEN, Poker.Suit.HEARTS),
-            new Card(Poker.CardValue.KING, Poker.Suit.HEARTS),
-            new Card(Poker.CardValue.ACE, Poker.Suit.HEARTS),
+            new Card(Poker.CardValue.JACK, Poker.Suit.CLUBS),
         });
 
         System.out.println(Poker.determineHighestHand(player, community));
@@ -36,12 +36,14 @@ public class Main {
         commCards.setRiver(mainDeck.burnAndDealOne()); // river
         System.out.println("Here are the community cards after the River...");
         commCards.sortCardPool();
-        // System.out.println(commCards);
+        System.out.println(commCards);
 
-        // for (Player p: players) {
-        //     p.sortCardPool();
-        //     System.out.println("Player " + p.getNum() + ":\t" + p + "   \t\t"+ Poker.determineHighestHand(p, commCards));
-        // }
+        for (Player p: players) {
+            p.sortCardPool();
+            System.out.println("Player " + p.getNum() + ":\t" + p + "   \t\t"+ Poker.determineHighestHand(p, commCards));
+        }
+
+        scan.close();
 
     }
 }

@@ -43,6 +43,10 @@ public class Card implements Comparable<Card> {
 		return this.CARD_VALUE;
 	}
 
+	public boolean ranksEqualTo(Card c) {
+		return this.getCardValue() == c.getCardValue();
+	}
+
 	@Override
 	public String toString() {
 		return CARD_VALUE + " of " + SUIT;
