@@ -1,6 +1,7 @@
 public class Card implements Comparable<Card> {
 	private final Poker.Suit SUIT;
 	private final Poker.CardValue CARD_VALUE;
+	private boolean marked = false;
 
 	/**
 	 * Default constructor makes a null card
@@ -41,6 +42,18 @@ public class Card implements Comparable<Card> {
 
 	public Poker.CardValue getCardValue() {
 		return this.CARD_VALUE;
+	}
+
+	public void markCard() {
+		this.marked = true;
+	}
+
+	public void unmarkCard() {
+		this.marked = false;
+	}
+
+	public boolean isMarked() {
+		return marked;
 	}
 
 	public boolean ranksEqualTo(Card c) {

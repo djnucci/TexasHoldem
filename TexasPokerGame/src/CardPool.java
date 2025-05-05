@@ -1,23 +1,53 @@
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
 
+/**
+ * Parent class of many classes in the poker game <p>
+ * Provides generic behaviours that a pool of cards should possess <p>
+ * Ended up being like a wrapper around an array similar to {@link java.util.ArrayList}
+ */
 public class CardPool {
 	private Card[] cards;
 
+	/**
+	 * Constructor to instansiate a pool of cards with a set size
+	 * @param numCards
+	 */
 	public CardPool(int numCards) {
 		cards = new Card[numCards];
 	}
 
+	/**
+	 * Constructor to instansiate a pool of cards with a single starting card
+	 * @param card
+	 */
 	public CardPool(Card c) {
 		cards = new Card[]{c};
 	}
 
+	/**
+	 * Constructor to instansiate a pool of cards with a many starting card
+	 * @param cards
+	 */
 	public CardPool(Card[] cards) {
 		this.cards = cards;
 	}
 
+	public CardPool(Card[] cards, boolean marked) {
+		this.cards = cards;
+
+		if (marked) {
+			for (Card c: this.cards) {
+				c.markCard();
+			}
+		}
+	}
+
+	/**
+	 * Constructor to instansiate a pool of cards combining two card arrays
+	 * @param pileOne
+	 * @param pileTwo
+	 */
 	public CardPool (Card[] pileOne, Card[] pileTwo) {
 		cards = new Card[pileOne.length + pileTwo.length];
 
@@ -29,7 +59,12 @@ public class CardPool {
 		}
 	}
 
-	public CardPool (Player pileOne, Community pileTwo) {
+	/**
+	 * Constructor to instansiate a pool of cards combining two card pools
+	 * @param pileOne
+	 * @param pileTwo
+	 */
+	public CardPool (CardPool pileOne, CardPool pileTwo) {
 		cards = new Card[pileOne.getCards().length + pileTwo.getCards().length];
 
 		for (int i = 0; i < pileOne.getCards().length; i++) {
@@ -40,14 +75,27 @@ public class CardPool {
 		}
 	}
 
+	/**
+	 * cards getter
+	 * @return the card array
+	 */
 	public Card[] getCards() {
 		return cards;
 	}
 
+	/**
+	 * cards setter
+	 * @param cards
+	 */
 	public void setCards(Card[] cards) {
 		this.cards = cards;
 	}
 
+	/**
+	 * Appends a card to the end of the card pool
+	 * @param card
+	 * @return was successful
+	 */
 	public boolean appendCard(Card card) {
 		try {
 			Card[] newCards = new Card[this.size() + 1];
@@ -66,6 +114,11 @@ public class CardPool {
 		return true;
 	}
 
+	/**
+	 * 
+	 * @param cards
+	 * @return
+	 */
 	public boolean appendCards(Card[] cards) {
 		try {
 			Card[] newCards = new Card[this.size() + cards.length];
@@ -104,6 +157,25 @@ public class CardPool {
 			return false;
 		}
 	}
+
+	/**
+	 * Remove all used cards in the pool 
+	 * @return the number of cards removed
+	 */
+	public int removeUsedCards() {
+		int numRemoved = 0;
+
+		for (Card c : cards) {
+			if (c.isMarked()) {
+				this.remove(c);
+				numRemoved++;
+			}
+		}
+
+		return numRemoved;
+	} 
+
+	
 
 	public int size() {
 		return this.cards.length;
@@ -267,7 +339,7 @@ public class CardPool {
 
 		for (Card c: reversedOrderCards) {
 			CardPool cPool = poolOccurences(c);
-			return new WinningHand(cPool, Poker.getHand(cPool.size()));
+			return new WinningHand(cPool, Poker.getHand(cPool.size()), true);
 		}
 
 		return new WinningHand();
@@ -275,7 +347,12 @@ public class CardPool {
 
 	// FIXME
 	public WinningHand checkFullHouseTwoPair() {
+		WinningHand winningHand;
 
+		// check for a three of a kind, making sure to mark if the cards are used
+		if ((winningHand = this.matchHandWithMaxNumOccurences()).getHandValue() == Poker.Hand.THREE_OF_A_KIND) {
+
+		}
 
 		return new WinningHand();
 	}

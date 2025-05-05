@@ -4,18 +4,18 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Deck mainDeck = new Deck(true);
 
-        Player player = new Player(0, new Card[]{
-            new Card(Poker.CardValue.ACE, Poker.Suit.SPADES),
-            new Card(Poker.CardValue.ACE, Poker.Suit.SPADES)});
-        Community community = new Community(new Card[]{
-            new Card(Poker.CardValue.SEVEN, Poker.Suit.SPADES),
-            new Card(Poker.CardValue.EIGHT, Poker.Suit.SPADES),
-            new Card(Poker.CardValue.QUEEN, Poker.Suit.SPADES),
-            new Card(Poker.CardValue.ACE, Poker.Suit.SPADES),
-            new Card(Poker.CardValue.ACE, Poker.Suit.SPADES),
-        });
+        // Player player = new Player(0, new Card[]{
+        //     new Card(Poker.CardValue.ACE, Poker.Suit.SPADES),
+        //     new Card(Poker.CardValue.ACE, Poker.Suit.SPADES)});
+        // Community community = new Community(new Card[]{
+        //     new Card(Poker.CardValue.SEVEN, Poker.Suit.SPADES),
+        //     new Card(Poker.CardValue.EIGHT, Poker.Suit.SPADES),
+        //     new Card(Poker.CardValue.QUEEN, Poker.Suit.SPADES),
+        //     new Card(Poker.CardValue.ACE, Poker.Suit.SPADES),
+        //     new Card(Poker.CardValue.ACE, Poker.Suit.SPADES),
+        // });
 
-        System.out.println(Poker.determineHighestHand(player, community));
+        // System.out.println(Poker.determineHighestHand(player, community));
 
         Scanner scan = new Scanner(System.in);
         System.out.println("Game started. How many players would like to play?");
